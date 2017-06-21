@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import edu.mum.coffee.domain.Order;
+import edu.mum.coffee.domain.Person;
 import edu.mum.coffee.service.OrderService;
+import edu.mum.coffee.service.PersonService;
 
 
 @RestController
 public class OrderRest {
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private PersonService personService;
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
 	public ResponseEntity<List<Order>> getAllOrder() {
@@ -42,6 +47,17 @@ public class OrderRest {
             return new ResponseEntity<Order>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Order>(order, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/orderByPerson/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order>> getOrderByPerson(@PathVariable("id") long id) {
+		Person person = personService.findById(id);
+        System.out.println("Fetching Order with person " + person.getFirstName() + person.getLastName());
+        List<Order> orders = orderService.findByPerson(person);
+        if (orders == null) {
+        	return new ResponseEntity<List<Order>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/order", method=RequestMethod.POST)
