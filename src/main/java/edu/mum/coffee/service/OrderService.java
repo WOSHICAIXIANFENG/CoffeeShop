@@ -41,9 +41,12 @@ public class OrderService {
 	public Order findById(int id){
 		return orderRepository.findOne(id);
 	}
-
+	
+	public boolean isOrderExist(Order order) {
+		return orderRepository.exists(order.getId());
+	}
+	
 	public List<Order> findAll(){
 		return orderRepository.findAll();
 	}
-
 }

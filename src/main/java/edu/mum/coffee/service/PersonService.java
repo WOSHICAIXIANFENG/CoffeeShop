@@ -20,6 +20,14 @@ public class PersonService {
 		return personRepository.save(person);
 	}
 
+	public boolean isPersonExist(Person person) {
+		return personRepository.exists(person.getId());
+	}
+	
+	public List<Person> findAll() {
+		return personRepository.findAll();
+	}
+	
 	public List<Person> findByEmail(String email) {
 		return personRepository.findByEmail(email);
 	}
