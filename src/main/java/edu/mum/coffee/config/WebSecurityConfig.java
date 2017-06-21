@@ -13,24 +13,24 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .authorizeRequests()
-                .antMatchers("/", "/home", "/index").permitAll()
-                .anyRequest().authenticated()
-                .and()
-            .formLogin()
-            	.permitAll()
-            	.and()
-            .logout()
-            	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            	.logoutSuccessUrl("/")
-                .permitAll();
+//        http
+//            .authorizeRequests()
+//                .antMatchers("/", "/home", "/index").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//            .formLogin()
+//            	.permitAll()
+//            	.and()
+//            .logout()
+//            	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//            	.logoutSuccessUrl("/")
+//                .permitAll();
     }
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("super").password("pw").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("xianfeng").password("pw").roles("ADMIN");
+//		auth.inMemoryAuthentication().withUser("super").password("pw").roles("ADMIN");
+//		auth.inMemoryAuthentication().withUser("xianfeng").password("pw").roles("ADMIN");
 		
 	}
 }

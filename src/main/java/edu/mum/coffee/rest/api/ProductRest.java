@@ -23,7 +23,7 @@ public class ProductRest {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value="/products", method=RequestMethod.GET)
+	@RequestMapping(value="/product", method=RequestMethod.GET)
 	public ResponseEntity<List<Product>> getAllProduct() {
 		List<Product> products = productService.getAllProduct();
 		if (products.isEmpty()) {
@@ -32,7 +32,7 @@ public class ProductRest {
 		return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> getProduct(@PathVariable("id") long id) {
         System.out.println("Fetching product with id " + id);
         Product product = productService.getProduct((int)id);
@@ -85,6 +85,4 @@ public class ProductRest {
 		productService.delete(product);
 		return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
 	}
-	
- 
 }
