@@ -23,7 +23,7 @@ public class ProductRest {
 	@Autowired
 	private ProductService productService;
 	
-	@RequestMapping(value="/product", method=RequestMethod.GET)
+	@RequestMapping(value="/product/", method=RequestMethod.GET)
 	public ResponseEntity<List<Product>> getAllProduct() {
 		List<Product> products = productService.getAllProduct();
 		if (products.isEmpty()) {
@@ -43,7 +43,7 @@ public class ProductRest {
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/product", method=RequestMethod.POST)
+	@RequestMapping(value="/product/", method=RequestMethod.POST)
 	public ResponseEntity<Void> createProduct(@RequestBody Product product, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating product " + product.getDescription());
 		if (productService.isProductExist(product)) {

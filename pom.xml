@@ -5,7 +5,7 @@
 	<groupId>edu.mum</groupId>
 	<artifactId>coffeeShop</artifactId>
 	<name>coffeeShop</name>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 
 	<parent>

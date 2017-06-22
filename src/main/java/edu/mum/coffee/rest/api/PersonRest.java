@@ -23,7 +23,7 @@ public class PersonRest {
 	@Autowired
 	private PersonService personService;
 	
-	@RequestMapping(value="/person", method=RequestMethod.GET)
+	@RequestMapping(value="/person/", method=RequestMethod.GET)
 	public ResponseEntity<List<Person>> getAllPerson() {
 		List<Person> persons = personService.findAll();
 		if (persons.isEmpty()) {
@@ -43,7 +43,7 @@ public class PersonRest {
         return new ResponseEntity<Person>(person, HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/person", method=RequestMethod.POST)
+	@RequestMapping(value="/person/", method=RequestMethod.POST)
 	public ResponseEntity<Void> createPerson(@RequestBody Person person, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating Person " + person.getFirstName() + person.getLastName());
 		if (personService.isPersonExist(person)) {

@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import edu.mum.coffee.domain.Person;
 
 public class PersonRestTest {
-	public static final String REST_SERVICE_URI = "http://localhost:8080/coffeeShop";
+	public static final String REST_SERVICE_URI = "http://localhost:8080/";
     
     /* GET */
     @SuppressWarnings("unchecked")
@@ -21,7 +21,7 @@ public class PersonRestTest {
          
         if(personsMap!=null){
             for(LinkedHashMap<String, Object> map : personsMap){
-                System.out.println("Person : id="+map.get("id")+", Name="+map.get("name")+", Age="+map.get("age")+", Salary="+map.get("salary"));;
+                System.out.println("Person : " + map.get("id")+", Name="+map.get("firstName")+", email="+map.get("email")+", phone="+map.get("phone"));;
             }
         }else{
             System.out.println("No person exist----------");
@@ -32,7 +32,7 @@ public class PersonRestTest {
     private static void getPerson(){
         System.out.println("Testing getPerson API----------");
         RestTemplate restTemplate = new RestTemplate();
-        Person person = restTemplate.getForObject(REST_SERVICE_URI+"/person/1", Person.class);
+        Person person = restTemplate.getForObject(REST_SERVICE_URI+"/person/51", Person.class);
         System.out.println(person);
     }
      
@@ -41,6 +41,10 @@ public class PersonRestTest {
         System.out.println("Testing create Person API----------");
         RestTemplate restTemplate = new RestTemplate();
         Person person = new Person();
+        person.setEmail("Samuel.Cai@gmail.com");
+        person.setFirstName("firstName");
+        person.setLastName("lastName");
+        person.setPhone("1323434535");
         // todo
         URI uri = restTemplate.postForLocation(REST_SERVICE_URI+"/person/", person, Person.class);
         System.out.println("Location : "+uri.toASCIIString());
@@ -60,18 +64,12 @@ public class PersonRestTest {
     private static void deletePerson() {
         System.out.println("Testing delete Person API----------");
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(REST_SERVICE_URI+"/person/3");
+        restTemplate.delete(REST_SERVICE_URI+"/person/52");
     }
- 
- 
-    /* DELETE */
-    private static void deleteAllPerson() {
-        System.out.println("Testing all delete Person API----------");
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(REST_SERVICE_URI+"/person/");
-    }
- 
+    
     public static void main(String args[]){
+    	createPerson();
+    	createPerson();
         listAllPersons();
         getPerson();
         createPerson();
@@ -79,8 +77,6 @@ public class PersonRestTest {
         updatePerson();
         listAllPersons();
         deletePerson();
-        listAllPersons();
-        deleteAllPerson();
         listAllPersons();
     }
 }

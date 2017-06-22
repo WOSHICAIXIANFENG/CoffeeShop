@@ -29,7 +29,7 @@ public class OrderRest {
 	@Autowired
 	private PersonService personService;
 	
-	@RequestMapping(value="/order", method=RequestMethod.GET)
+	@RequestMapping(value="/order/", method=RequestMethod.GET)
 	public ResponseEntity<List<Order>> getAllOrder() {
 		List<Order> orders = orderService.findAll();
 		if (orders.isEmpty()) {
@@ -60,7 +60,7 @@ public class OrderRest {
         return new ResponseEntity<List<Order>>(orders, HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/order", method=RequestMethod.POST)
+	@RequestMapping(value="/order/", method=RequestMethod.POST)
 	public ResponseEntity<Void> createOrder(@RequestBody Order order, UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating Order " + order.getId());
 		if (orderService.isOrderExist(order)) {
