@@ -2,11 +2,14 @@ package edu.mum.coffee.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Fetch;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,7 +20,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private String email;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Address address;
 	private String phone;
 	private boolean enable;

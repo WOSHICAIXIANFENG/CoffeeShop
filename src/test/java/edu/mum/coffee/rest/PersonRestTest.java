@@ -1,4 +1,4 @@
-package edu.mum.coffee;
+package edu.mum.coffee.rest;
 
 import java.net.URI;
 import java.util.LinkedHashMap;
