@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,6 +41,18 @@ public class PersonRest {
             System.out.println("Person with id " + id + " not found");
             return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<Person>(person, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = "/personByEmail/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> getPerson(@RequestParam String email) {
+        System.out.println("Fetching person with email " + email);
+        Person person = personService.findByEmailDistinct(email);
+        if (person == null) {
+            //return new ResponseEntity<Person>(HttpStatus.NOT_FOUND);
+        	new ResponseEntity<Person>(new Person(), HttpStatus.OK);
+        }
+
         return new ResponseEntity<Person>(person, HttpStatus.OK);
     }
 	

@@ -31,6 +31,19 @@ public class PersonService {
 	public List<Person> findByEmail(String email) {
 		return personRepository.findByEmail(email);
 	}
+	
+	public Person findByEmailDistinct(String email) {
+		//return personRepository.findByEmail(email);
+		List<Person> persons = personRepository.findAll();
+		if (persons != null) {
+			for (Person person : persons) {
+				if (email.toLowerCase().equals(person.getEmail().toLowerCase())) {
+					return person;
+				}
+			}
+		}
+		return null;
+	}
 
 	public Person findById(Long id) {
 		return personRepository.findOne(id);

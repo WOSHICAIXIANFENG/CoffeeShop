@@ -4,8 +4,15 @@ import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import edu.mum.coffee.domain.Order;
 import edu.mum.coffee.domain.Person;
 
 public class PersonRestTest {
@@ -67,16 +74,37 @@ public class PersonRestTest {
         restTemplate.delete(REST_SERVICE_URI+"/person/52");
     }
     
+    private static void getPersonByEmail() {
+    	RestTemplate restTemplate = new RestTemplate();
+    	restTemplate.setErrorHandler(new TestErrorHandler());
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+    	MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+    	map.add("email", "samuel@gg.com");
+
+    	HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+    	ResponseEntity<Person> response = restTemplate.postForEntity( REST_SERVICE_URI + "/personByEmail/", request, Person.class );
+
+    	
+    	//URI uri = restTemplate.postForLocation(REST_SERVICE_URI + "/personByEmail/", Person.class);
+    	System.out.println("Test get person by email response = " + response);
+    }
+    
     public static void main(String args[]){
-    	createPerson();
-    	createPerson();
-        listAllPersons();
-        getPerson();
-        createPerson();
-        listAllPersons();
-        updatePerson();
-        listAllPersons();
-        deletePerson();
-        listAllPersons();
+//    	createPerson();
+//    	createPerson();
+//        listAllPersons();
+//        getPerson();
+//        createPerson();
+//        listAllPersons();
+//        updatePerson();
+//        listAllPersons();
+//        deletePerson();
+//        listAllPersons();
+        
+    	getPersonByEmail();
     }
 }
